@@ -2,6 +2,11 @@
 
 abstract class Database {
     protected $conn;
-    protected $db;
-    abstract public function init();
+    protected $db = 'lina';
+
+    public function __construct() {
+        $this->conn = new mysqli('localhost', 'root', '');
+    }
+
+    abstract public function createDB();
 }

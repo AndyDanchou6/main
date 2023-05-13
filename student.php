@@ -2,38 +2,24 @@
 
 include 'abstract.php';
 
-interface Init {
-    public function connect();
+interface Motto {
+    public function motto ();
 }
 
-class NewStudent extends Database implements Init {
-    public function connect() {
-        $this->init();
-    }
-    public function init() {
-        $this->db = 'lina';
-        $this->conn = new mysqli('localhost', 'root', '');
-        $this->conn->query("CREATE DATABASE IF NOT EXISTS". $this->db);
-        $this->conn = new mysqli('localhost', 'root', '', $this->db);
-    }
-} 
-
-class OldStudent extends Database implements Init {
-    public function connect() {
-        $this->init();
-    }
-    public function init() {
-        $this->db = 'lina';
-        $this->conn = new mysqli('localhost', 'root', '');
-        $this->conn->query("CREATE DATABASE IF NOT EXISTS". $this->db);
-        $this->conn = new mysqli('localhost', 'root', '', $this->db);
-    }
+class NewStudent extends Database implements Motto {
+   public function createDB() {
+    $this->conn->query("CREATE DATABASE IF NOT EXISTS ". $this->db);
+    $this->conn = new mysqli('localhost', 'root', '', $this->db);
+   }
+   public function motto () {
+    return "Basic";
+   }
 } 
 
 $data1 = new NewStudent();
-$con = $data1->connect();
+$con = $data1->createDB();
 
-if ($con) {
+if ($con == true) {
     echo "successful";
 }
 
